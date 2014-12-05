@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace ModifiedNodalAnalysis
 {
@@ -17,9 +19,9 @@ namespace ModifiedNodalAnalysis
         {
             string line   = string.Empty;
             string result = string.Empty;
-            if (System.IO.File.Exists(this.filename))
+            if (File.Exists(this.filename))
             {
-                System.IO.StreamReader reader = (new System.IO.StreamReader(this.filename, System.Text.Encoding.Default));
+                StreamReader reader = (new StreamReader(this.filename, Encoding.Default));
                 while(reader.Peek() >= 0)
                 {
                     line = reader.ReadLine();
