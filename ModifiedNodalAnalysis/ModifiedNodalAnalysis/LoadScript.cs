@@ -17,7 +17,7 @@ namespace ModifiedNodalAnalysis
             this.filename  = filename;
             this.delimitor = new char[] {' '};
         }
-        public void parseCommandLine()
+        public List<string[]> parseCommandLine()
         {
             string line   = string.Empty;
             string result = string.Empty;
@@ -34,7 +34,7 @@ namespace ModifiedNodalAnalysis
                 }
                 reader.Close();
             }
-            MatrixBuilder matrixbuilder = new MatrixBuilder(elementlist);
+            return elementlist;
         }
     }
 }

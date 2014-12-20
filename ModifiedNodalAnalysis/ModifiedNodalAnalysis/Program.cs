@@ -12,8 +12,8 @@ namespace ModifiedNodalAnalysis
         {
             if (args.Length > 0)
             {
-                LoadScript loadscript = new LoadScript(args[0]);
-                loadscript.parseCommandLine();
+                Analyzer analyzer = new Analyzer();
+                analyzer.analyze(args[0]);
             } else
             {
                 Console.WriteLine("Error!");  

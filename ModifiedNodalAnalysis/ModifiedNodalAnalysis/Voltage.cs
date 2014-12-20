@@ -8,7 +8,7 @@ namespace ModifiedNodalAnalysis
 {
     class Voltage : Element
     {
-        public Voltage(int value, int prenode, int postnode) : base(value, prenode, postnode) { }
+        public Voltage(string[] rawline) : base(rawline) { }
         
         public override void getType() {
             Console.WriteLine("Element: Voltage");

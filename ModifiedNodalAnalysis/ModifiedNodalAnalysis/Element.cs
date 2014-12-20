@@ -8,15 +8,15 @@ namespace ModifiedNodalAnalysis
 {
     abstract class Element
     {
-        protected int value;
         protected int prenode;
         protected int postnode;
+        protected int value;
 
-        public Element(int value, int prenode, int postnode)
+        public Element(string[] rawline)
         {
-            this.value    = value;
-            this.prenode  = prenode;
-            this.postnode = postnode;
+            this.prenode  = int.Parse(rawline[1]);
+            this.postnode = int.Parse(rawline[2]);
+            this.value    = int.Parse(rawline[3]);
         }
 
         public int getValue() {

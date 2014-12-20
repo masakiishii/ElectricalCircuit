@@ -8,8 +8,10 @@ namespace ModifiedNodalAnalysis
 {
     class Resistor : Element
     {
-        public Resistor(int value, int prenode, int postnode) : base(value, prenode, postnode) {}
-        
+        private string[] rawline;
+
+        public Resistor(string[] rawline) : base(rawline) {}
+
         public override void getType() {
             Console.WriteLine("Element: Resistor");
         }
