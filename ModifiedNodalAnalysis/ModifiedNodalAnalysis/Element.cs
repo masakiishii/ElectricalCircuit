@@ -40,6 +40,6 @@ namespace ModifiedNodalAnalysis
             return this.prenode > this.posnode ? this.prenode : this.posnode;
         }
 
-        public abstract void setElementData(float[, ] matrix, int matrixgsize);
+        public abstract void stampElementData(float[, ] matrix, int matrixgsize);
     }
 }

@@ -14,7 +14,7 @@ namespace ModifiedNodalAnalysis
             Console.WriteLine("Element: Voltage");
         }
 
-        public override void setElementData(float[,] matrix, int matrixgsize)
+        public override void stampElementData(float[,] matrix, int matrixgsize)
         {
 
         }

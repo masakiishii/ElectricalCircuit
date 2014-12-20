@@ -64,11 +64,11 @@ namespace ModifiedNodalAnalysis
             return sourcenum;
         }
 
-        private void setMatrixData(float[, ] matrix, Element[] elementlist, int matrixgsize)
+        private void stampData(float[, ] matrix, Element[] elementlist, int matrixgsize)
         {
             for (int i = 0; i < elementlist.Length; i++)
             {
-                elementlist[i].setElementData(matrix, matrixgsize);
+                elementlist[i].stampElementData(matrix, matrixgsize);
             }
         }
 
@@ -91,7 +91,7 @@ namespace ModifiedNodalAnalysis
             int matrixbsize = this.getMatrixBSize(elementlist);
             int matrixsize  = matrixgsize + matrixbsize;
             float[,] matrix = new float[matrixsize, matrixsize];
-            this.setMatrixData(matrix, elementlist, matrixgsize);
+            this.stampData(matrix, elementlist, matrixgsize);
 
             /* for debug */
             this.showMatrixData(matrix, matrixsize);
