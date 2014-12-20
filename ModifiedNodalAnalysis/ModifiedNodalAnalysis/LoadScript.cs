@@ -11,14 +11,17 @@ namespace ModifiedNodalAnalysis
     class LoadScript
     {
         private string filename;
+        private char[] delimitor;
         public LoadScript(string filename)
         {
-            this.filename = filename;
+            this.filename  = filename;
+            this.delimitor = new char[] {' '};
         }
         public void parseCommandLine()
         {
             string line   = string.Empty;
             string result = string.Empty;
+            List<string[]> elementlist = new List<string[]>();
             if (File.Exists(this.filename))
             {
                 StreamReader reader = new StreamReader(this.filename, Encoding.Default);
@@ -26,11 +29,12 @@ namespace ModifiedNodalAnalysis
                 {
                     line = reader.ReadLine();
                     if(!line.Equals(".end")) {
-                        Console.WriteLine(line);
+                        elementlist.Add(line.Split(this.delimitor));
                     }
                 }
                 reader.Close();
             }
+            MatrixBuilder matrixbuilder = new MatrixBuilder(elementlist);
         }
     }
 }
