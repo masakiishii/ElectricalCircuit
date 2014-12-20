@@ -36,13 +36,48 @@ namespace ModifiedNodalAnalysis
             return elementlist;
         }
 
-        public void build(List<string[]> rawlist)
+        private int getMatrixGSize(Element[] elementlist)
         {
-            Element[] elementlist = this.buildElementList(rawlist);
+            int maximumnode = 0;
+            int nodenum;
             for (int i = 0; i < elementlist.Length; i++)
             {
-                elementlist[i].getType();
+                nodenum = elementlist[i].getNodeNumber();
+                if(nodenum > maximumnode) {
+                    maximumnode = nodenum;
+                }
             }
+            Console.WriteLine("matrix G size: " + maximumnode);
+            return maximumnode;
+        }
+
+        private int getMatrixBSize(Element[] elementlist)
+        {
+            int sourcenum = 0;
+            for (int i = 0; i < elementlist.Length; i++)
+            {
+                if(elementlist[i].GetType() == typeof(Voltage)) {
+                    sourcenum++;
+                }
+            }
+            Console.WriteLine("matrix B size: " + sourcenum);
+            return sourcenum;
+        }
+
+        private void setMatrixData(float[, ] matrix)
+        {
+            
+        }
+
+        public float[,] build(List<string[]> rawlist)
+        {
+            Element[] elementlist = this.buildElementList(rawlist);
+            int matrixgsize = this.getMatrixGSize(elementlist);
+            int matrixbsize = this.getMatrixBSize(elementlist);
+            int matrixsize  = matrixgsize + matrixbsize;
+            float[,] matrix = new float[matrixsize, matrixsize];
+            this.setMatrixData(matrix);
+            return matrix;
         }
     }
 }

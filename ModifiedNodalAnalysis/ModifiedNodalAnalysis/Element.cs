@@ -34,5 +34,10 @@ namespace ModifiedNodalAnalysis
         }
 
         public abstract void getType();
+
+        public int getNodeNumber()
+        {
+            return this.prenode > this.postnode ? this.prenode : this.postnode;
+        }
     }
 }

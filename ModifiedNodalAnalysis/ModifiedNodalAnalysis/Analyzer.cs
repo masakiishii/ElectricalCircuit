@@ -20,7 +20,7 @@ namespace ModifiedNodalAnalysis
             List<string[]> rawlist = loadscript.parseCommandLine();
 
             MatrixBuilder matrixbuilder = new MatrixBuilder();
-            matrixbuilder.build(rawlist);
+            float[, ] matrix = matrixbuilder.build(rawlist);
         }
     }
 }
