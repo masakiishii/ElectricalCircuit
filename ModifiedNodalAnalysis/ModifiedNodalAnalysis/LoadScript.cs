@@ -21,11 +21,13 @@ namespace ModifiedNodalAnalysis
             string result = string.Empty;
             if (File.Exists(this.filename))
             {
-                StreamReader reader = (new StreamReader(this.filename, Encoding.Default));
+                StreamReader reader = new StreamReader(this.filename, Encoding.Default);
                 while(reader.Peek() >= 0)
                 {
                     line = reader.ReadLine();
-                    Console.WriteLine(line);
+                    if(!line.Equals(".end")) {
+                        Console.WriteLine(line);
+                    }
                 }
                 reader.Close();
             }
