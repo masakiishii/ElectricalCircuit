@@ -32,5 +32,7 @@ namespace ModifiedNodalAnalysis
         {
             return this.postnode;
         }
+
+        public abstract void getType();
     }
 }
