@@ -15,5 +15,36 @@ namespace ModifiedNodalAnalysis
         public override void getType() {
             Console.WriteLine("Element: Resistor");
         }
+
+        private void setNonEarthElementData(float[,] matrix, int matrixgsize)
+        {
+            matrix[this.prenode - 1, this.prenode - 1] += 1 / this.value;
+            matrix[this.posnode - 1, this.posnode - 1] += 1 / this.value;
+            matrix[this.prenode - 1, this.posnode - 1] -= 1 / this.value;
+            matrix[this.posnode - 1, this.prenode - 1] -= 1 / this.value;
+        }
+
+        private void setEarthElementtData(float[,] matrix, int matrixgsize)
+        {
+            if(this.prenode != 0) {
+                matrix[this.prenode - 1, this.prenode - 1] += 1 / this.value;
+            }
+            else
+            {
+                matrix[this.posnode - 1, this.posnode - 1] += 1 / this.value;
+            }
+        }
+
+        public override void setElementData(float[,] matrix, int matrixgsize)
+        {
+            if(this.prenode != 0 && this.posnode != 0) {
+                this.setNonEarthElementData(matrix, matrixgsize);
+            }
+            else
+            {
+                this.setEarthElementtData(matrix, matrixgsize);
+            }
+        }
+
     }
 }

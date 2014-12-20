@@ -8,18 +8,18 @@ namespace ModifiedNodalAnalysis
 {
     abstract class Element
     {
-        protected int prenode;
-        protected int postnode;
-        protected int value;
+        protected int   prenode;
+        protected int   posnode;
+        protected float value;
 
         public Element(string[] rawline)
         {
             this.prenode  = int.Parse(rawline[1]);
-            this.postnode = int.Parse(rawline[2]);
-            this.value    = int.Parse(rawline[3]);
+            this.posnode  = int.Parse(rawline[2]);
+            this.value    = float.Parse(rawline[3]);
         }
 
-        public int getValue() {
+        public float getValue() {
             return this.value;
         }
 
@@ -30,14 +30,16 @@ namespace ModifiedNodalAnalysis
 
         public int getPostNode()
         {
-            return this.postnode;
+            return this.posnode;
         }
 
         public abstract void getType();
 
         public int getNodeNumber()
         {
-            return this.prenode > this.postnode ? this.prenode : this.postnode;
+            return this.prenode > this.posnode ? this.prenode : this.posnode;
         }
+
+        public abstract void setElementData(float[, ] matrix, int matrixgsize);
     }
 }

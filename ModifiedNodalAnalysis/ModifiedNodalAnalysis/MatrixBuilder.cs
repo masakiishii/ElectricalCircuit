@@ -64,9 +64,24 @@ namespace ModifiedNodalAnalysis
             return sourcenum;
         }
 
-        private void setMatrixData(float[, ] matrix)
+        private void setMatrixData(float[, ] matrix, Element[] elementlist, int matrixgsize)
         {
-            
+            for (int i = 0; i < elementlist.Length; i++)
+            {
+                elementlist[i].setElementData(matrix, matrixgsize);
+            }
+        }
+
+        private void showMatrixData(float[, ] matrix, int matrixsize)
+        {
+            for (int i = 0; i < matrixsize; i++)
+            {
+                for (int j = 0; j < matrixsize; j++)
+                {
+                    Console.Write(matrix[i, j] + "     ");
+                }
+                Console.WriteLine();
+            }
         }
 
         public float[,] build(List<string[]> rawlist)
@@ -76,7 +91,10 @@ namespace ModifiedNodalAnalysis
             int matrixbsize = this.getMatrixBSize(elementlist);
             int matrixsize  = matrixgsize + matrixbsize;
             float[,] matrix = new float[matrixsize, matrixsize];
-            this.setMatrixData(matrix);
+            this.setMatrixData(matrix, elementlist, matrixgsize);
+
+            /* for debug */
+            this.showMatrixData(matrix, matrixsize);
             return matrix;
         }
     }
