@@ -64,18 +64,19 @@ namespace ModifiedNodalAnalysis
             return sourcenum;
         }
 
-        private void stampData(float[, ] matrix, Element[] elementlist, int matrixgsize)
+        private void stampData(float[, ] matrix, float[, ] vector, Element[] elementlist, int matrixgsize)
         {
             for (int i = 0; i < elementlist.Length; i++)
             {
-                elementlist[i].stampElementData(matrix, matrixgsize);
+                elementlist[i].stampElementData(matrix, vector, matrixgsize);
             }
         }
 
-        private void showMatrixData(float[, ] matrix, int matrixsize)
+        private void showMatrixData(float[, ] matrix, float[, ] vector, int matrixsize)
         {
-            Console.WriteLine("");
-            Console.WriteLine("show Matrix A: ");
+            Console.WriteLine("A x = z");
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine("show stamping Matrix A: ");
             for (int i = 0; i < matrixsize; i++)
             {
                 for (int j = 0; j < matrixsize; j++)
@@ -84,19 +85,29 @@ namespace ModifiedNodalAnalysis
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("");
+            Console.WriteLine("show stamping source vector z: ");
+            for (int i = 0; i < matrixsize; i++)
+            {
+                Console.WriteLine("{0, 6}", vector[i, 0]);
+            }
         }
 
         public float[,] build(List<string[]> rawlist)
         {
             Element[] elementlist = this.buildElementList(rawlist);
+
+            /* build matrix A using stamp : (A x = z) */
             int matrixgsize = this.getMatrixGSize(elementlist);
             int matrixbsize = this.getMatrixBSize(elementlist);
             int matrixsize  = matrixgsize + matrixbsize;
             float[,] matrix = new float[matrixsize, matrixsize];
-            this.stampData(matrix, elementlist, matrixgsize);
+            float[,] vector = new float[matrixsize, 1];
+            this.stampData(matrix, vector, elementlist, matrixgsize);
 
+            
             /* for debug */
-            this.showMatrixData(matrix, matrixsize);
+            this.showMatrixData(matrix, vector, matrixsize);
             return matrix;
         }
     }

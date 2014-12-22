@@ -35,7 +35,7 @@ namespace ModifiedNodalAnalysis
             }
         }
 
-        public override void stampElementData(float[,] matrix, int matrixgsize)
+        public override void stampElementData(float[,] matrix, float[,] vector, int matrixgsize)
         {
             if(this.prenode != 0 && this.posnode != 0) {
                 this.stampNonEarthElementData(matrix, matrixgsize);
