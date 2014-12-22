@@ -64,7 +64,7 @@ namespace ModifiedNodalAnalysis
             return sourcenum;
         }
 
-        private void stampData(float[, ] matrix, float[, ] vector, Element[] elementlist, int matrixgsize)
+        private void stampData(double[, ] matrix, double[, ] vector, Element[] elementlist, int matrixgsize)
         {
             for (int i = 0; i < elementlist.Length; i++)
             {
@@ -72,7 +72,7 @@ namespace ModifiedNodalAnalysis
             }
         }
 
-        private void showMatrixData(float[, ] matrix, float[, ] vector, int matrixsize)
+        private void showMatrixData(double[, ] matrix, double[, ] vector, int matrixsize)
         {
             Console.WriteLine("A x = z");
             Console.WriteLine("-----------------------------------------");
@@ -93,7 +93,16 @@ namespace ModifiedNodalAnalysis
             }
         }
 
-        public float[,] build(List<string[]> rawlist) /******* Kernel Method *******/
+        private void showAnswerVector(double[,] ansvector, int matrixsize)
+        {
+            Console.WriteLine("show answer vector x: ");
+            for (int i = 0; i < matrixsize; i++)
+            {
+                Console.WriteLine("{0, 6}", ansvector[i, 0]);
+            }
+        }
+
+        public double[,] build(List<string[]> rawlist) /******* Kernel Method *******/
         {
             Element[] elementlist = this.buildElementList(rawlist);
 
@@ -101,17 +110,21 @@ namespace ModifiedNodalAnalysis
             int matrixgsize = this.getMatrixGSize(elementlist);
             int matrixbsize = this.getMatrixBSize(elementlist);
             int matrixsize  = matrixgsize + matrixbsize;
-            float[,] matrix = new float[matrixsize, matrixsize];  /* A (n * n) */
-            float[,] vector = new float[matrixsize, 1];           /* z (n * 1) */
+            double[,] matrix = new double[matrixsize, matrixsize];  /* A (n * n) */
+            double[,] vector = new double[matrixsize, 1];           /* z (n * 1) */
             this.stampData(matrix, vector, elementlist, matrixgsize);
+
+            /* for debug */
+            this.showMatrixData(matrix, vector, matrixsize);
 
             /* LU Decompose */
             LUDecomposer decomposer = new LUDecomposer(matrix, vector, matrixsize);
             decomposer.decompose();
+            double[,] ansvector = decomposer.solve();
 
-            
             /* for debug */
-            this.showMatrixData(matrix, vector, matrixsize);
+            this.showAnswerVector(vector, matrixsize);
+            
             return matrix;
         }
     }

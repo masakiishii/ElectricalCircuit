@@ -24,7 +24,7 @@ namespace ModifiedNodalAnalysis
             return this.id;
         }
 
-        public override void stampElementData(float[,] matrix, float[,] vector, int matrixgsize)
+        public override void stampElementData(double[,] matrix, double[,] vector, int matrixgsize)
         {
             if(this.prenode > 0) {
                 matrix[this.prenode - 1, matrixgsize + this.id - 1] = this.prenode > 0 ?  1 : 0;
