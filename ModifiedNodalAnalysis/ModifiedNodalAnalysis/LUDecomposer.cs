@@ -34,7 +34,8 @@ namespace ModifiedNodalAnalysis
                     this.vector[i, 0] = this.vector[i, 0] + this.matrix[i, k] * this.vector[k, 0];
                 }
             }
-            this.vector[this.matrixsize - 1, 0] = this.vector[this.matrixsize - 1, 0] / this.matrix[this.matrixsize - 1, this.matrixsize - 1];
+            this.vector[this.matrixsize - 1, 0]
+                = this.vector[this.matrixsize - 1, 0] / this.matrix[this.matrixsize - 1, this.matrixsize - 1];
             for (int k = this.matrixsize - 2; k >= 0; k-- )
             {
                 tmp = this.vector[k, 0];

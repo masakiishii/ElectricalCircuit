@@ -27,6 +27,9 @@ namespace ModifiedNodalAnalysis
                     case 'V':
                         element = new Voltage(rawline);
                         break;
+                    case 'I':
+                        element = new CurrentSource(rawline);
+                        break;
                     default:
                         element = null;
                         break;
