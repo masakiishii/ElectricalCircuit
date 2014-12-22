@@ -93,17 +93,21 @@ namespace ModifiedNodalAnalysis
             }
         }
 
-        public float[,] build(List<string[]> rawlist)
+        public float[,] build(List<string[]> rawlist) /******* Kernel Method *******/
         {
             Element[] elementlist = this.buildElementList(rawlist);
 
-            /* build matrix A using stamp : (A x = z) */
+            /* Build Matrix A using Stamp : (A x = z) */
             int matrixgsize = this.getMatrixGSize(elementlist);
             int matrixbsize = this.getMatrixBSize(elementlist);
             int matrixsize  = matrixgsize + matrixbsize;
-            float[,] matrix = new float[matrixsize, matrixsize];
-            float[,] vector = new float[matrixsize, 1];
+            float[,] matrix = new float[matrixsize, matrixsize];  /* A (n * n) */
+            float[,] vector = new float[matrixsize, 1];           /* z (n * 1) */
             this.stampData(matrix, vector, elementlist, matrixgsize);
+
+            /* LU Decompose */
+            LUDecomposer decomposer = new LUDecomposer(matrix, vector, matrixsize);
+            decomposer.decompose();
 
             
             /* for debug */

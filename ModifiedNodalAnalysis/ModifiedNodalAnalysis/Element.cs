@@ -10,16 +10,16 @@ namespace ModifiedNodalAnalysis
     {
         protected int   prenode;
         protected int   posnode;
-        protected float value;
+        protected double value;
 
         public Element(string[] rawline)
         {
             this.prenode  = int.Parse(rawline[1]);
             this.posnode  = int.Parse(rawline[2]);
-            this.value    = float.Parse(rawline[3]);
+            this.value    = double.Parse(rawline[3]);
         }
 
-        public float getValue() {
+        public double getValue() {
             return this.value;
         }
 
@@ -40,6 +40,6 @@ namespace ModifiedNodalAnalysis
             return this.prenode > this.posnode ? this.prenode : this.posnode;
         }
 
-        public abstract void stampElementData(float[,] matrix, float[,] vector, int matrixgsize);
+        public abstract void stampElementData(double[,] matrix, double[,] vector, int matrixgsize);
     }
 }

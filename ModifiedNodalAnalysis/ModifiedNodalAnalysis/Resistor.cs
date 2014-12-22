@@ -16,7 +16,7 @@ namespace ModifiedNodalAnalysis
             Console.WriteLine("Element: Resistor");
         }
 
-        private void stampNonEarthElementData(float[,] matrix, int matrixgsize)
+        private void stampNonEarthElementData(double[,] matrix, int matrixgsize)
         {
             matrix[this.prenode - 1, this.prenode - 1] += 1 / this.value;
             matrix[this.posnode - 1, this.posnode - 1] += 1 / this.value;
@@ -24,7 +24,7 @@ namespace ModifiedNodalAnalysis
             matrix[this.posnode - 1, this.prenode - 1] -= 1 / this.value;
         }
 
-        private void stampEarthElementtData(float[,] matrix, int matrixgsize)
+        private void stampEarthElementtData(double[,] matrix, int matrixgsize)
         {
             if(this.prenode != 0) {
                 matrix[this.prenode - 1, this.prenode - 1] += 1 / this.value;
@@ -35,7 +35,7 @@ namespace ModifiedNodalAnalysis
             }
         }
 
-        public override void stampElementData(float[,] matrix, float[,] vector, int matrixgsize)
+        public override void stampElementData(double[,] matrix, double[,] vector, int matrixgsize)
         {
             if(this.prenode != 0 && this.posnode != 0) {
                 this.stampNonEarthElementData(matrix, matrixgsize);
