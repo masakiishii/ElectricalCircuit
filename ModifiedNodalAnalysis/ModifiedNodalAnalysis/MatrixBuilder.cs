@@ -132,7 +132,7 @@ namespace ModifiedNodalAnalysis
 
         }
 
-        public double[,] build(List<string[]> rawlist) /******* Kernel Method *******/
+        public double[,] build(List<string[]> rawlist, bool sparsemode) /******* Kernel Method *******/
         {
             Element[] elementlist = this.buildElementList(rawlist);
 
@@ -149,7 +149,7 @@ namespace ModifiedNodalAnalysis
             //Console.ReadLine();
 
 
-            if(false) { /* sparse processing */
+            if(sparsemode) { /* sparse processing */
                 bool[,] sparsematrix = new bool[matrixsize, matrixsize];  /* A (n * n) */
                 this.sparsePreProcess(matrix, sparsematrix, matrixsize);
 

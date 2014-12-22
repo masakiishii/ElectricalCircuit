@@ -12,7 +12,7 @@ namespace ModifiedNodalAnalysis
         {
 
         }
-        public void analyze(string file)
+        public void analyze(string file, bool sparsemode)
         {
             /***  Kernel for Modified Nodal Analysis  ***/
 
@@ -20,7 +20,7 @@ namespace ModifiedNodalAnalysis
             List<string[]> rawlist = loadscript.parseCommandLine();
 
             MatrixBuilder matrixbuilder = new MatrixBuilder();
-            double[, ] matrix = matrixbuilder.build(rawlist);
+            double[, ] matrix = matrixbuilder.build(rawlist, sparsemode);
         }
     }
 }
