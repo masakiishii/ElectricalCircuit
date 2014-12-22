@@ -84,7 +84,7 @@ namespace ModifiedNodalAnalysis
             {
                 for (int j = 0; j < matrixsize; j++)
                 {
-                    Console.Write("{0, 6} ", matrix[i, j]);
+                    Console.Write("{0, 6} ", Math.Round(matrix[i, j], 3, MidpointRounding.AwayFromZero));
                 }
                 Console.WriteLine();
             }
@@ -105,6 +105,33 @@ namespace ModifiedNodalAnalysis
             }
         }
 
+        private void sparsePreProcess(double[,] matrix, bool[,] sparsematrix, int matrixsize)
+        {
+            double epsiron = Math.Pow(2, -50);
+            for (int i = 0; i < matrixsize; i++ )
+            {
+                for (int j = 0; j < matrixsize; j++ )
+                {
+                    sparsematrix[i, j] = Math.Abs(matrix[i, j]) < epsiron ? true : false;
+                }
+            }
+        }
+
+        private void sparseProcessing(double[,] matrix, bool[,] sparsematrix, int matrixsize)
+        {
+            for (int i = 0; i < matrixsize; i++ )
+            {
+                for (int j = 0; j < matrixsize; j++ )
+                {
+                    if (sparsematrix[i, j] && Math.Abs(matrix[i, j]) < 0.1)
+                    {
+                        matrix[i, j] = 0;
+                    }
+                }
+            }
+
+        }
+
         public double[,] build(List<string[]> rawlist) /******* Kernel Method *******/
         {
             Element[] elementlist = this.buildElementList(rawlist);
@@ -119,15 +146,37 @@ namespace ModifiedNodalAnalysis
 
             /* for debug */
             this.showMatrixData(matrix, vector, matrixsize);
+            //Console.ReadLine();
 
-            /* LU Decompose */
-            LUDecomposer decomposer = new LUDecomposer(matrix, vector, matrixsize);
-            decomposer.decompose();
-            double[,] ansvector = decomposer.solve();
+
+            if(false) { /* sparse processing */
+                bool[,] sparsematrix = new bool[matrixsize, matrixsize];  /* A (n * n) */
+                this.sparsePreProcess(matrix, sparsematrix, matrixsize);
+
+                LUDecomposer decomposer = new LUDecomposer(matrix, vector, matrixsize);
+                decomposer.decompose();
+                
+                this.sparseProcessing(matrix, sparsematrix, matrixsize);
+
 
             /* for debug */
-            this.showAnswerVector(vector, matrixsize);
-            
+                this.showMatrixData(matrix, vector, matrixsize);
+
+
+                double[,] ansvector = decomposer.solve();
+                this.showAnswerVector(vector, matrixsize);                
+            }
+            else
+            {
+            /* LU Decompose */
+                LUDecomposer decomposer = new LUDecomposer(matrix, vector, matrixsize);
+                decomposer.decompose();
+                double[,] ansvector = decomposer.solve();
+
+            /* for debug */
+                this.showMatrixData(matrix, vector, matrixsize);
+                this.showAnswerVector(vector, matrixsize);
+            }
             return matrix;
         }
     }
