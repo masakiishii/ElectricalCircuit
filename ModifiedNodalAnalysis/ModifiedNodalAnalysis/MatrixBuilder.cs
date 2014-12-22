@@ -74,11 +74,13 @@ namespace ModifiedNodalAnalysis
 
         private void showMatrixData(float[, ] matrix, int matrixsize)
         {
+            Console.WriteLine("");
+            Console.WriteLine("show Matrix A: ");
             for (int i = 0; i < matrixsize; i++)
             {
                 for (int j = 0; j < matrixsize; j++)
                 {
-                    Console.Write(matrix[i, j] + "     ");
+                    Console.Write("{0, 6} ", matrix[i, j]);
                 }
                 Console.WriteLine();
             }
