@@ -50,7 +50,6 @@ namespace ModifiedNodalAnalysis
                     maximumnode = nodenum;
                 }
             }
-            Console.WriteLine("matrix G size: " + maximumnode);
             return maximumnode;
         }
 
@@ -63,7 +62,6 @@ namespace ModifiedNodalAnalysis
                     sourcenum++;
                 }
             }
-            Console.WriteLine("matrix B size: " + sourcenum);
             return sourcenum;
         }
 
@@ -79,7 +77,9 @@ namespace ModifiedNodalAnalysis
         {
             Console.WriteLine("A x = z");
             Console.WriteLine("-----------------------------------------");
+            Console.WriteLine();
             Console.WriteLine("show stamping Matrix A: ");
+            Console.WriteLine("-----------------------------------------");
             for (int i = 0; i < matrixsize; i++)
             {
                 for (int j = 0; j < matrixsize; j++)
@@ -90,15 +90,18 @@ namespace ModifiedNodalAnalysis
             }
             Console.WriteLine("");
             Console.WriteLine("show stamping source vector z: ");
+            Console.WriteLine("-----------------------------------------");
             for (int i = 0; i < matrixsize; i++)
             {
                 Console.WriteLine("{0, 6}", vector[i, 0]);
             }
+            Console.WriteLine();
         }
 
         private void showAnswerVector(double[,] ansvector, int matrixsize)
         {
             Console.WriteLine("show answer vector x: ");
+            Console.WriteLine("-----------------------------------------");
             for (int i = 0; i < matrixsize; i++)
             {
                 Console.WriteLine("{0, 6}", ansvector[i, 0]);
@@ -156,6 +159,7 @@ namespace ModifiedNodalAnalysis
                 LUDecomposer decomposer = new LUDecomposer(matrix, vector, matrixsize);
                 decomposer.decompose();
                 
+                this.showMatrixData(matrix, vector, matrixsize);
                 this.sparseProcessing(matrix, sparsematrix, matrixsize);
 
 
@@ -174,7 +178,6 @@ namespace ModifiedNodalAnalysis
                 double[,] ansvector = decomposer.solve();
 
             /* for debug */
-                this.showMatrixData(matrix, vector, matrixsize);
                 this.showAnswerVector(vector, matrixsize);
             }
             return matrix;
